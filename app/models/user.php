@@ -1,7 +1,7 @@
 <?php
 class User extends AppModel
 {
-	public function loginAuth()
+	public function auth()
 	{
 		$db = DB::conn();
 		$row = $db->row('SELECT * From user WHERE username = ? AND password = ?',
@@ -10,7 +10,17 @@ class User extends AppModel
 		return $row;
 	}
 
-	public static function getAllUser()
+	public static function get_user($username, $password)
+	{
+		$db = DB::conn();
+                $row = $db->rows('SELECT * From user WHERE username = ? AND password = ?',
+                                array($username, $password)
+                );
+
+                return $row;
+	}
+
+	public static function get_all_user()
 	{
 		$users = array();
 		$db = DB::conn();
